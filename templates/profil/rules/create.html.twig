@@ -7,8 +7,7 @@
 		<div class="editProfileForm">
 			{{ form_start(ruleForm) }}
 			{{ form_widget(ruleForm) }}
-			<a class="boutonRedirect" href="{{ path('app_profil') }}#mesRègles" type="submit">Créer une règle</a>
-			
+			<button class="boutonRedirect" type="submit">Créer une règle</button>		
 			{{ form_end(ruleForm) }}
 		</div>
 		{{ form_errors(ruleForm) }}
@@ -31,8 +30,8 @@
 						<td>{{ rule.description }}</td>
 						<td>{{ rule.author.firstName }} {{ rule.author.lastName }}</td>
 						<td>
-							<a class="boutonRedirectForm" href="{{ path('app_profil_rules_edit', {'id': rule.id}) }}">Edit</a>
-							<a class="boutonRedirectForm" href="{{ path('app_profil_rules_delete', {'id': rule.id}) }}">Delete</a>
+
+							<a class="boutonRedirectForm" href="{{ path('app_profil_rules_delete', {'id': rule.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% endif %}

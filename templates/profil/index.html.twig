@@ -54,10 +54,10 @@
 			</section>
 		</section>
 		<div class="driverInformations">
-		<h2>Mes trajets</h2>
+			<h2>Mes trajets</h2>
 			<div class="trajetLogoInformations"></div>
 			<div class="driverFullInformations">
-				
+
 				{% for ride in rides %}
 					{% if ride.driver == app.user %}
 						<div class="card">
@@ -116,10 +116,11 @@
 							</div>
 
 						</div>
+
 					{% endif %}
+				{% else %}
+					<p>Aucun trajet pour le moment.</p>
 				{% endfor %}
-
-
 				<a class="boutonRedirect" href="{{ path('app_profil_rides') }}">Ajouter ou modifier un trajet</a>
 			</div>
 		</div>
@@ -133,7 +134,8 @@
 				<a href="#mesTrajets" class="listeBouton">Mes trajets 📍</a>
 			</section>
 		</section>
-		<div class="driverInformations"><h2>Mon véhicule</h2>
+		<div class="driverInformations">
+			<h2>Mon véhicule</h2>
 			<div class="carLogoInformations"></div>
 			<div class="driverFullInformations">
 				{% if cars is not empty %}
@@ -142,7 +144,7 @@
 							<th>Marque</th>
 							<th>Modèle</th>
 							<th>Places</th>
-							<th>Date d'ajout du véhicule'</th>
+							<th>Date d'ajout du véhicule</th>
 						</tr>
 						{% for car in cars %}
 							<tr>
@@ -169,7 +171,7 @@
 			</section>
 		</section>
 		<div class="driverInformations">
-		<h2>Mes règles</h2>
+			<h2>Mes règles</h2>
 			<div class="rulesLogoInformations"></div>
 			<div class="driverFullInformations">
 				{% if rules is not empty %}
@@ -186,9 +188,9 @@
 						{% endfor %}
 					</table>
 				{% else %}
-					<p>Aucune rèles pour le moment.</p>
+					<p>Aucune règles pour le moment.</p>
 				{% endif %}
-				<a class="boutonRedirect" href="{{ path('app_profil_rules') }}">Ajouter, supprimer ou modifier une règles</a>
+				<a class="boutonRedirect" href="{{ path('app_profil_rules') }}">Ajouter, supprimer ou modifier une règle</a>
 			</div>
 
 		</div>

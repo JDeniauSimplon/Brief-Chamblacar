@@ -23,7 +23,7 @@ class Rule
 
     #[ORM\ManyToOne(inversedBy: 'rules')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $author = null;
+    private ?User $author = null;
 
     #[ORM\ManyToMany(targetEntity: Ride::class, mappedBy: 'rules')]
     private Collection $rides;

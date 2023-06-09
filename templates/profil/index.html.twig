@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block homeTitle %}
+	{{ homeTitle }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="ridesContainer">
+		<section class="boiteSwitchButtons" id="monProfil">
+			<section class="switchButtons">
+				<p class="monProfil">MON PROFIL ⚙️</p>
+				<a href="#mesTrajets" class="listeBouton">Mes trajets 📍</a>
+				<a href="#monVéhicule" class="listeBouton">Mon véhicule 🚗</a>
+				<a href="#mesRègles" class="listeBouton">Mes règles 📜</a>
+			</section>
+		</section>
+		<div class="driverInformations">
+			<div class="driverLogoInformations"></div>
+			<div class="driverFullName">
+				<p>{{ app.user.firstName ~ ' ' ~ app.user.lastName }}</p>
+			</div>
+			<div class="driverFullInformations">
+				<div class="informationsLine">
+					<span class="informationName">EMAIL</span>
+					<span class="actualInformation">{{ app.user.email }}</span>
+				</div>
+				<div class="informationsLine">
+					<span class="informationName">NOM</span>
+					<span class="actualInformation">{{ app.user.lastName }}</span>
+				</div>
+				<div class="informationsLine">
+					<span class="informationName">PRENOM</span>
+					<span class="actualInformation">{{ app.user.firstName }}</span>
+				</div>
+				<div class="informationsLine">
+					<span class="informationName">TELEPHONE</span>
+					<span class="actualInformation">{{ app.user.phone }}</span>
+				</div>
+				<div class="informationsLine">
+					<span class="informationName">MOT DE PASSE</span>
+					<span class="actualInformation">***************</span>
+				</div>
+				<a class="boutonRedirect" href="{{ path('app_profil_informations') }}">Modifier une ligne</a>
+			</div>
+		</div>
+
+		<section class="boiteSwitchButtons" id="mesTrajets">
+			<section class="switchButtons">
+				<p class="monProfil">Mes trajets 📍</p>
+				<a href="#monVéhicule" class="listeBouton">Mon véhicule 🚗</a>
+				<a href="#mesRègles" class="listeBouton">Mes règles 📜</a>
+				<a href="#monProfil" class="listeBouton">Mon profil ⚙️</a>
+			</section>
+		</section>
+		<div class="driverInformations">
+		<h2>Mes trajets</h2>
+			<div class="trajetLogoInformations"></div>
+			<div class="driverFullInformations">
+				
+				{% for ride in rides %}
+					{% if ride.driver == app.user %}
+						<div class="card">
+
+							<div class="trajetLogoContainer">
+								<span class="trajetLogo"></span>
+							</div>
+
+							<div class="carLogoContainer">
+								<span class="carLogo"></span>
+							</div>
+
+							<div class="halfCard1">
+								<div class="trajetContainer">
+									<span class="blockCity">
+										<h3>{{ ride.departure }}</h3>
+									</span>
+									<span class="blockCity">
+										<h3>{{ ride.destination }}</h3>
+									</span>
+								</div>
+								<div class="dateDepart">
+									<p>Départ le
+										{{ ride.date|date('d/m/Y \\à H\\hi', 'Europe/Paris') }}</p>
+								</div>
+							</div>
+
+							<div class="halfCard2">
+								<section class="driverCard">
+									<span class="driverLogo"></span>
+									<section class="blockDriver">
+										<span class="driverName">{{ ride.driver.getFirstName() }}
+											{{ ride.driver.getLastName() }}</span>
+										<p>Crée le
+											{{ ride.created|date('d/m/Y H:i') }}</p>
+									</section>
+								</section>
+								<section class="bottomDriverCard">
+									<p>{{ ride.price }}
+										€</p>
+									<p>{{ ride.seats }}
+										places disponibles</p>
+									<a href="{{ path('app_profil_rides_detail', { 'id': ride.id }) }}"></a>
+								</section>
+								<p>
+									{% for rule in ride.rules %}
+										<span>{{ (rule.name) }}
+											:
+											{{ (rule.description) }}</span>
+										{% if not loop.last %},
+										{% endif %}
+									{% endfor %}
+								</p>
+
+
+							</div>
+
+						</div>
+					{% endif %}
+				{% endfor %}
+
+
+				<a class="boutonRedirect" href="{{ path('app_profil_rides') }}">Ajouter ou modifier un trajet</a>
+			</div>
+		</div>
+
+
+		<section class="boiteSwitchButtons" id="monVéhicule">
+			<section class="switchButtons">
+				<p class="monProfil">Mon véhicule 🚗</p>
+				<a href="#mesRègles" class="listeBouton">Mes règles 📜</a>
+				<a href="#monProfil" class="listeBouton">Mon profil ⚙️</a>
+				<a href="#mesTrajets" class="listeBouton">Mes trajets 📍</a>
+			</section>
+		</section>
+		<div class="driverInformations"><h2>Mon véhicule</h2>
+			<div class="carLogoInformations"></div>
+			<div class="driverFullInformations">
+				{% if cars is not empty %}
+					<table>
+						<tr>
+							<th>Marque</th>
+							<th>Modèle</th>
+							<th>Places</th>
+							<th>Date d'ajout du véhicule'</th>
+						</tr>
+						{% for car in cars %}
+							<tr>
+								<td>{{ car.brand }}</td>
+								<td>{{ car.model }}</td>
+								<td>{{ car.seats }}</td>
+								<td>{{ car.created|date('Y-m-d H:i:s') }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p>Aucun véhicule pour le moment.</p>
+				{% endif %}
+				<a class="boutonRedirect" href="{{ path('app_profil_car') }}">Ajouter, supprimer ou modifier un véhicule</a>
+			</div>
+		</div>
+
+		<section class="boiteSwitchButtons" id="mesRègles">
+			<section class="switchButtons">
+				<p class="monProfil">Mes règles 📜</p>
+				<a href="#monProfil" class="listeBouton">Mon profil ⚙️</a>
+				<a href="#mesTrajets" class="listeBouton">Mes trajets 📍</a>
+				<a href="#monVéhicule" class="listeBouton">Mon véhicule 🚗</a>
+			</section>
+		</section>
+		<div class="driverInformations">
+		<h2>Mes règles</h2>
+			<div class="rulesLogoInformations"></div>
+			<div class="driverFullInformations">
+				{% if rules is not empty %}
+					<table>
+						<tr>
+							<th>Nom</th>
+							<th>Description</th>
+						</tr>
+						{% for rule in rules %}
+							<tr>
+								<td>{{ rule.name }}</td>
+								<td>{{ rule.description }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p>Aucune rèles pour le moment.</p>
+				{% endif %}
+				<a class="boutonRedirect" href="{{ path('app_profil_rules') }}">Ajouter, supprimer ou modifier une règles</a>
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,3 @@
+security:
+  login:
+    error: "Identifiants invalides. Veuillez vérifier votre email et votre mot de passe."

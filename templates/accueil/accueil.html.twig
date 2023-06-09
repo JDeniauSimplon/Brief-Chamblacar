@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block homeTitle %}
+    {{ homeTitle }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="ridesContainer">
+        <section class="accueil">
+            <div class="accueilCard">
+                <p class="accueilCardContent">Bienvenue sur Chamblacar, votre nouvelle plateforme de covoiturage ! 🚗 <br /> Chez ChamblaCar, nous mettons en relation conducteurs et passagers qui souhaitent partager leur trajet.<br /> Notre objectif ? Rendre le transport plus économique, plus convivial et plus respectueux de l'environnement. 🌿 <br /> Ensemble, rendons la route plus agréable !</p>
+            </div>
+            <section class="accueilBanner">
+            </section>
+            {% if not app.user %}
+            <a href="{{path('app_register')}}" class="inscriptionCard" title="S'inscrire">
+                <p class="accueilCardContent">S'inscrire dès maintenant !</p>
+            </a>
+            {% endif %}
+        </section>
+    </div>
+
+{% endblock %}

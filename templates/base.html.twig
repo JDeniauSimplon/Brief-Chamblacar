@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</head>
+	<header class="navbar navbarFixed">
+		<div class="logoAndSearchbar">
+			<a href="{{ path("app_accueil") }}" class="iconButton">
+				<span class="icon"></span>
+			</a>
+			<div class="searchBar">
+				<input type="text" class="searchInput" placeholder="Rechercher...">
+				<button class="searchButton">
+					<span class="iconLoupe" title="Rechercher"></span>
+				</button>
+			</div>
+		</div>
+		<section class="logButton">
+  {% if app.request.attributes.get('_route') != 'app_liste' %}
+    <a href="{{ path('app_liste') }}" class="userProfil" title="Liste des annonces">
+      <span class="hidden-text">ANNONCES</span>
+      <span class="iconEmoji">📢</span>
+    </a>
+  {% endif %}
+  {% if app.user %}
+    {% if app.request.attributes.get('_route') != 'app_profil' %}
+      <a href="{{ path('app_profil') }}" class="userProfil" title="Mon profil">MON PROFIL ⚙️</a>
+    {% endif %}
+    <a href="{{ path('app_logout') }}" class="userProfil" title="Déconnexion">SE DECONNECTER 🔒</a>
+  {% else %}
+    {% if app.request.attributes.get('_route') != 'app_login' %}
+      <a href="{{ path('app_login') }}" class="userProfil" title="Se connecter">SE CONNECTER 🔓</a>
+    {% endif %}
+    {% if app.request.attributes.get('_route') != 'app_register' %}
+      <a href="{{ path('app_register') }}" class="userProfil" title="S'inscrire">S'INSCRIRE 📝</a>
+    {% endif %} 
+  {% endif %}
+</section>
+	</header>
+
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>

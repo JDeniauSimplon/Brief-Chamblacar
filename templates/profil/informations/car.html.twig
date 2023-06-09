@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block homeTitle %}
+    {{ homeTitle }}
+{% endblock %}
+
+{% block body %}
+    <div class="ridesContainer">
+        <div class="editProfileForm">
+            {{ form_start(carForm) }}
+            {{ form_widget(carForm) }}
+            {% if cars is empty %}
+                <button type="submit">Ajouter</button>
+            {% endif %}
+            {{ form_end(carForm) }}
+
+            <table>
+                <tr>
+                    <th>Marque</th>
+                    <th>Modèle</th>
+                    <th>Places</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for car in cars %}
+                    <tr>
+                        <td>{{ car.brand }}</td>
+                        <td>{{ car.model }}</td>
+                        <td>{{ car.seats }}</td>
+                        <td>
+
+                        </td>
+                        <td>
+                            {% if loop.first %}
+                                <a class="boutonRedirect" href="{{ path('app_profil_delete_car', {'id': car.id}) }}">Supprimer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a class="boutonRedirect" href="{{ path('app_profil') }}#monVéhicule">Retour au profil</a>
+        </div>
+    </div>
+{% endblock %}

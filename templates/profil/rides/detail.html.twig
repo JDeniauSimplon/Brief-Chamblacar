@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="ridesContainerDetail">
+        {% if ride %}
+            <div class="card">
+           
+                <div class="carLogoContainer">
+                    <span class="carLogo"></span>
+                </div>
+                <div class="halfCard1">
+                    <div class="trajetContainer">
+                        <span class="blockCity">
+                            <h3>{{ ride.departure }}🏁</h3>
+                        </span>
+                        <span class="blockCity">
+                            <h3>{{ ride.destination }}📍</h3>
+                        </span>
+                    </div>
+                    <div class="dateDepart">
+                        <p>Départ le {{ ride.date|date('d/m/Y \\à H\\hi', 'Europe/Paris') }}</p>
+                    </div>
+                </div>
+                <div class="halfCard2">
+                    <section class="driverCard">
+                        <span class="driverLogo"></span>
+                        <section class="blockDriver">
+                            <span class="driverName">{{ ride.driver.getFirstName() }} {{ ride.driver.getLastName() }}</span>
+                            <p>Créé le {{ ride.created|date('d/m/Y H:i') }}</p>
+                        </section>
+                    </section>
+                    <section class="bottomDriverCard">
+                        <p>{{ ride.price }} €</p>
+                        <p>{{ ride.seats }} places disponibles</p>
+                    </section>
+                    <div class="rulesContainer">
+                        <h3 class="driverRules">Règles du conducteur :</h3>
+                        {% for rule in ride.driver.getRules() %}
+                            <p>{{ rule.getName() }} : {{ rule.getDescription() }}</p>
+                        {% endfor %}
+                    </div>
+                    <p>Membre depuis le : {{ ride.driver.getCreated()|date('d/m/Y') }} ⭐</p>
+                </div>
+            </div>
+
+            {% if app.user is defined and ride.driver == app.user %}
+                <div class="buttonsContainer">
+                    <a class="boutonRedirect" href="{{ path('app_profil') }}#mesTrajets" class="btn">Retourner sur mon profil</a>
+                    <a class="boutonRedirect" href="{{ path('app_liste') }}" class="btn">Retourner à la liste des annonces</a>
+                   <a class="boutonRedirect" href="{{ path('app_profil_rides_edit', {'id': ride.id}) }}" class="btn">Modifier l'annonce</a>
+
+                    
+                </div>
+            {% else %}
+                <div class="buttonsContainer">
+                    <a class="boutonRedirect" href="{{ path('app_liste') }}" class="btn">Retourner à la liste des annonces</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Aucun trajet trouvé.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+
+
+

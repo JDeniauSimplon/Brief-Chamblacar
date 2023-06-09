@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block homeTitle %}
+	{{ homeTitle }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="ridesContainer">
+
+		{% for ride in rides %}
+
+			<div class="card">
+
+				<div class="trajetLogoContainer">
+					<span class="trajetLogo"></span>
+				</div>
+
+				<div class="carLogoContainer">
+					<span class="carLogo"></span>
+				</div>
+
+				<div class="halfCard1">
+					<div class="trajetContainer">
+						<span class="blockCity">
+							<h3>{{ ride.departure }}</h3>
+						</span>
+						<span class="blockCity">
+							<h3>{{ ride.destination }}</h3>
+						</span>
+					</div>
+					<div class="dateDepart">
+						<p>Départ le
+							{{ ride.date|date('d/m/Y \\à H\\hi', 'Europe/Paris') }}</p>
+					</div>
+				</div>
+
+				<div class="halfCard2">
+					<section class="driverCard">
+						<span class="driverLogo"></span>
+						<section class="blockDriver">
+							<span class="driverName">{{ ride.driver.getFirstName() }}
+								{{ ride.driver.getLastName() }}</span>
+							<p>Crée le
+								{{ ride.created|date('d/m/Y H:i') }}</p>
+						</section>
+					</section>
+					<section class="bottomDriverCard">
+						<p>{{ ride.price }}
+							€</p>
+						<p>{{ ride.seats }}
+							places disponibles</p>
+						<a href="{{ path('app_profil_rides_detail', { 'id': ride.id }) }}"></a>
+					</section>
+					{# <p>
+																					{% for rule in ride.rules %}
+																						<span>{{ (rule.name) }}
+																							:
+																							{{ (rule.description) }}</span>
+																						{% if not loop.last %},
+																						{% endif %}
+																					{% endfor %}
+																				</p> #}
+
+
+				</div>
+
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

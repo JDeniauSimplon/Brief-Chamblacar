@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer un trajet</h1>
+
+    <div class="ridesContainer">
+        <div class="editProfileForm">
+            {{ form_start(rideForm) }}
+            {{ form_widget(rideForm) }}
+            <button type="submit">Créer un trajet</button>
+            {{ form_end(rideForm) }}
+                <table>
+    <tr>
+  
+        <th>Départ</th>
+        <th>Destination</th>
+        <th>Places</th>
+        <th>Prix</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+   {% for ride in rides %}
+    {% if ride.driver == app.user %}
+        <tr>
+
+            <td>{{ ride.departure }}</td>
+            <td>{{ ride.destination }}</td>
+            <td>{{ ride.seats }}</td>
+            <td>{{ ride.price }}</td>
+            <td>{{ ride.date|date('Y-m-d H:i:s') }}</td>
+            <td>
+                <a class="boutonRedirectForm" href="{{ path('app_profil_rides_edit', {'id': ride.id}) }}">Modifier</a>
+                <a class="boutonRedirectForm" href="{{ path('app_profil_rides_delete', {'id': ride.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?')">Supprimer</a>
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
+        </div>
+        {{ form_errors(rideForm) }}
+
+</table>
+    <a class="boutonRedirect" href="{{ path('app_profil') }}#mesTrajets" class="btn">Retour au profil</a>
+    </div>
+
+   
+{% endblock %}

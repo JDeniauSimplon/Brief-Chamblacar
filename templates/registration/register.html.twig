@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="ridesContainer">
+        {% if app.session.flashBag.has('error') %}
+            <div class="alert alert-danger">
+                {{ app.session.flashBag.get('error')[0] }}
+            </div>
+        {% endif %}
+
+        {{ form_start(registrationForm) }}
+        <h1>S'INSCRIRE 📝</h1>
+        <div class="form-group">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {
+                'attr': {
+                    'class': 'form-control',
+                }
+            }) }}
+            {% if registrationForm.email.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ registrationForm.email.vars.errors[0].message }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+            {{ form_widget(registrationForm.plainPassword, {
+                'attr': {
+                    'class': 'form-control',
+                }
+            }) }}
+            {% if registrationForm.plainPassword.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ registrationForm.plainPassword.vars.errors[0].message }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(registrationForm.first_name, 'Prénom') }}
+            {{ form_widget(registrationForm.first_name, {
+                'attr': {
+                    'class': 'form-control',
+                }
+            }) }}
+            {% if registrationForm.first_name.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ registrationForm.first_name.vars.errors[0].message }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(registrationForm.last_name, 'Nom de famille') }}
+            {{ form_widget(registrationForm.last_name, {
+                'attr': {
+                    'class': 'form-control',
+                }
+            }) }}
+            {% if registrationForm.last_name.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ registrationForm.last_name.vars.errors[0].message }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(registrationForm.phone, 'Numéro de téléphone') }}
+            {{ form_widget(registrationForm.phone, {
+                'attr': {
+                    'class': 'form-control',
+                }
+            }) }}
+            {% if registrationForm.phone.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ registrationForm.phone.vars.errors[0].message }}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="boutonRedirect">Valider l'inscription</button>
+        <p> ou </p>
+            <a class="boutonRedirect" href="{{ path('app_login') }}" class="btn">Se connecter</a>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

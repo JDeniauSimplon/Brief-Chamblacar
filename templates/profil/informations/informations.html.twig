@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block homeTitle %}
+	{{ homeTitle }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="ridesContainer">
+        <div class="editProfileForm">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="boutonRedirect" type="submit">Mettre à jour</button>
+                  <a class="boutonRedirect" href="{{ path('app_profil') }}#monProfil">Retour au profil</a>
+                  
+            {{ form_end(form) }}
+       
+        </div>
+       
+	{% endblock %}
